@@ -145,6 +145,7 @@ export default {
         const totalPrice = this.countTax(element.basePrice)
         element.totalPrice = totalPrice
       })
+      localStorage.setItem('products', JSON.stringify(this.productsLocalStorage))
     },
     countTax (param) {
       const price = Number(param) // convert string to number
