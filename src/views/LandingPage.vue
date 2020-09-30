@@ -108,7 +108,7 @@ export default {
   },
   created () {
     this.createLocalStorage()
-    this.getProductsLocalStorage()
+    this.setProductsLocalStorage()
     this.countTotalPrice()
     this.countSubtotal()
   },
@@ -123,6 +123,7 @@ export default {
       if (!this.code && !this.name && !this.basePrice) {
         this.isEmptyLine = true
       } else {
+        this.basePrice = parseFloat(this.basePrice.replace(',', '.').replace(' ', '')) // convert commas to dots to avoid NaN
         const totalPrice = this.countTax(this.basePrice)
         const product = { code: this.code, name: this.name, basePrice: this.basePrice, totalPrice: totalPrice }
         this.productsLocalStorage.push(product)
@@ -161,8 +162,8 @@ export default {
         basePriceTotal += elementBasePrice
         totalPriceSubtotal += elementTotalPrice
       })
-      this.subtotalBasePrice = basePriceTotal
-      this.subtotalTotalPrice = totalPriceSubtotal
+      this.subtotalBasePrice = Math.round((basePriceTotal + Number.EPSILON) * 100) / 100 // round to 2 decimal places
+      this.subtotalTotalPrice = Math.round((totalPriceSubtotal + Number.EPSILON) * 100) / 100 // round to 2 decimal places
     },
     createLocalStorage () {
       if (localStorage.getItem('products') === null) {
@@ -174,10 +175,15 @@ export default {
         localStorage.setItem('productEditIndex', null)
       }
     },
-    getProductsLocalStorage () {
+    setProductsLocalStorage () {
       this.productsLocalStorage = JSON.parse(localStorage.getItem('products'))
     },
     save (product) {
+      // check if string includes comma separator
+      if (product.basePrice.includes(',')) {
+        console.log('includes comma? = yes')
+        product.basePrice = parseFloat(product.basePrice.replace(',', '.').replace(' ', '')) // convert commas to dots to avoid NaN
+      }
       product.isEditMode = false
       localStorage.setItem('products', JSON.stringify(this.productsLocalStorage))
       localStorage.setItem('productEditIndex', null)
