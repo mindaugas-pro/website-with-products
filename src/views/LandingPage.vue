@@ -86,6 +86,24 @@
 
 <script>
 export default {
+  computed: {
+    subtotalBasePrice: {
+      get () {
+        return this.$store.getters.getSubtotalBasePrice
+      },
+      set (value) {
+        this.$store.commit('SET_SUBTOTAL_BASE_PRICE', value)
+      }
+    },
+    subtotalTotalPrice: {
+      get () {
+        return this.$store.getters.getSubtotalTotalPrice
+      },
+      set (value) {
+        this.$store.commit('SET_SUBTOTAL_TOTAL_PRICE', value)
+      }
+    }
+  },
   data () {
     return {
       isEmptyLine: true,
@@ -94,9 +112,8 @@ export default {
       name: '',
       basePrice: '',
       taxValue: 0.21,
-      subtotalBasePrice: null,
-      subtotalTotalPrice: null,
-
+      // subtotalBasePrice: null,
+      // subtotalTotalPrice: null,
       productsLocalStorage: null
     }
   },
