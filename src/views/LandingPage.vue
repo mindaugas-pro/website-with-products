@@ -179,11 +179,8 @@ export default {
       this.productsLocalStorage = JSON.parse(localStorage.getItem('products'))
     },
     save (product) {
-      if (typeof product.BasePrice === 'string') {
-        // check if string includes comma separator
-        if (product.basePrice.includes(',')) {
-          product.basePrice = parseFloat(product.basePrice.replace(',', '.').replace(' ', '')) // convert commas to dots to avoid NaN
-        }
+      if (typeof product.basePrice === 'string' || product.basePrice instanceof String) {
+        product.basePrice = parseFloat(product.basePrice.replace(',', '.').replace(' ', '')) // convert commas to dots to avoid NaN
       }
       product.isEditMode = false
       localStorage.setItem('products', JSON.stringify(this.productsLocalStorage))
