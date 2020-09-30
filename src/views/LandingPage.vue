@@ -15,15 +15,6 @@
               <th>Action</th>
             </tr>
           </thead>
-          <!-- <tfoot>
-            <tr>
-              <th><abbr title="Code">Code</abbr></th>
-              <th>Name</th>
-              <th><abbr title="Base Price">Base Price</abbr></th>
-              <th><abbr title="Total Price">Total Price</abbr></th>
-              <th>Action</th>
-            </tr>
-          </tfoot> -->
           <tbody>
             <tr
               v-for="(product, index) in productsLocalStorage"
@@ -112,8 +103,6 @@ export default {
       name: '',
       basePrice: '',
       taxValue: 0.21,
-      // subtotalBasePrice: null,
-      // subtotalTotalPrice: null,
       productsLocalStorage: null
     }
   },
@@ -131,7 +120,6 @@ export default {
   },
   methods: {
     addNew () {
-      // this.$router.push('/newProduct')
       if (!this.code && !this.name && !this.basePrice) {
         this.isEmptyLine = true
       } else {
@@ -151,7 +139,6 @@ export default {
     edit (product, index) {
       localStorage.setItem('productEditIndex', index)
       this.$set(product, 'isEditMode', true)
-      // this.$router.push('/editProduct')
     },
     countTotalPrice () {
       this.productsLocalStorage.forEach(element => {
