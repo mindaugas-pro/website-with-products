@@ -34,7 +34,9 @@
 
           </tbody>
         </table>
-        </div>
+        <button class="button is-success" v-on:click="back()">Back</button>
+      </div>
+
     </div>
     <div class="hero-foot">Created by Mindaugas Januška</div>
   </section>
@@ -44,12 +46,44 @@
 export default {
   data () {
     return {
-      productsLocalStorage: null
+      productsLocalStorage: null,
+      subtotalBasePrice: null,
+      subtotalTotalPrice: null,
+      taxValue: 0.21
     }
   },
   created () {
     this.productsLocalStorage = JSON.parse(localStorage.getItem('products'))
+    this.countTotalPrice()
+    this.countSubtotal()
   },
-  methods: {}
+  methods: {
+    back () {
+      this.$router.push('/')
+    },
+    countTotalPrice () {
+      this.productsLocalStorage.forEach(element => {
+        const totalPrice = this.countTax(element.basePrice)
+        element.totalPrice = totalPrice
+      })
+    },
+    countTax (param) {
+      const price = Number(param) // convert string to number
+      const tax = price * this.taxValue
+      return Math.round(((price + tax) + Number.EPSILON) * 100) / 100 // round to 2 decimal places
+    },
+    countSubtotal () {
+      let basePriceTotal = 0
+      let totalPriceSubtotal = 0
+      this.productsLocalStorage.forEach(element => {
+        const elementBasePrice = Number(element.basePrice)
+        const elementTotalPrice = Number(element.totalPrice)
+        basePriceTotal += elementBasePrice
+        totalPriceSubtotal += elementTotalPrice
+      })
+      this.subtotalBasePrice = basePriceTotal
+      this.subtotalTotalPrice = totalPriceSubtotal
+    }
+  }
 }
 </script>
