@@ -10,9 +10,9 @@ const routes = [
     component: () => import('../views/LandingPage.vue')
   },
   {
-    path: '/editProduct',
-    name: 'EditProduct',
-    component: () => import('../views/EditProduct.vue')
+    path: '/billPage',
+    name: 'BillPage',
+    component: () => import('../views/BillPage.vue')
   }
 ]
 
