@@ -139,7 +139,7 @@ export default {
     },
     edit (product, index) {
       localStorage.setItem('productEditIndex', index)
-      this.$set(product, 'isEditMode', true)
+      this.$set(product, 'isEditMode', true) // will trigger state updates in the reactivity system; 'product.isEditMode = true' doesn't trigger state updates.
     },
     countTotalPrice () {
       this.productsLocalStorage.forEach(element => {
