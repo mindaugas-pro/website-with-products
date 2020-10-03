@@ -35,8 +35,9 @@
                 </td>
                 <td>{{ product.totalPrice }}</td>
                 <td>
-                  <button v-if="product.isEditMode" class="button mr-1" v-on:click="save(product)">save</button>
-                  <button v-if="product.isEditMode" class="button" v-on:click="cancel(product, index)">cancel</button>
+                  <button v-if="product.isEditMode" class="button mr-1 my-1" v-on:click="save(product, index)">save</button>
+                  <button v-if="product.isEditMode" class="button mr-1 my-1" v-on:click="cancel(product, index)">cancel</button>
+                  <button v-if="product.isEditMode" class="button mr-1 my-1" v-on:click="remove(product, index)">delete</button>
                   <button v-if="!product.isEditMode" class="button" v-on:click="edit(product, index)">edit</button>
                 </td>
             </tr>
@@ -194,6 +195,12 @@ export default {
     next () {
       localStorage.setItem('products', JSON.stringify(this.productsLocalStorage))
       this.$router.push('/billPage')
+    },
+    remove (product, index) {
+      this.productsLocalStorage.splice(index, 1)
+      product.isEditMode = false
+      localStorage.setItem('products', JSON.stringify(this.productsLocalStorage))
+      localStorage.setItem('productEditIndex', null)
     }
   }
 }
