@@ -1,4 +1,8 @@
-# website-with-products
+# Simulation of website-with-products
+
+[There is a link to the simulation of website-with-products to demonstrate my VueJS skills](https://mindaugas-pro.github.io/website-with-products/#/) 
+
+## Alternatively you can clone GitHub repository and run a project by executing the following commands:
 
 ## Project setup
 ```
