@@ -1,6 +1,6 @@
 # Simulation of website-with-products
 
-[There is a link to the life website](https://mindaugas-pro.github.io/website-with-products/#/) 
+[There is a link to the live website](https://mindaugas-pro.github.io/website-with-products/#/) 
 
 ## Alternatively you can clone GitHub repository and run a project by executing the following commands:
 
